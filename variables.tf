@@ -44,13 +44,13 @@ variable "source_cidr_block" {
 
 variable "target_account_id" {
   description = "The AWS Account ID where the Transit Gateway is shared"
-  type        = string
+  type        = list
 }
 
-variable "assume_role_arn" {
-  description = "ARN of the role to assume in the target account"
-  type        = string
-}
+# variable "assume_role_arn" {
+#   description = "ARN of the role to assume in the target account"
+#   type        = string
+# }
 
 
 ##############################################################
@@ -59,16 +59,19 @@ variable "assume_role_arn" {
 variable "source_vpc_id" {
   description = "The VPC ID for the Transit Gateway VPC attachment"
   type        = string
+  default     = null
 }
 
 variable "source_subnet_ids" {
   description = "List of subnet IDs for the Transit Gateway VPC attachment"
   type        = list(string)
+  default     = []
 }
 
 variable "source_route_table_ids" {
   description = "Route table ID to add routes to"
   type        = list(any)
+  default     = []
 }
 
 variable "destination_cidr_block" {
@@ -76,3 +79,18 @@ variable "destination_cidr_block" {
   type        = string
 }
 #######################################################################
+
+variable "create_transit_gateway" {
+  type    = bool
+  default = false
+}
+
+variable "existing_transit_gateway_arn" {
+  type    = string
+  default = null
+}
+
+variable "existing_transit_gateway_id" {
+  type    = string
+  default = null
+}
